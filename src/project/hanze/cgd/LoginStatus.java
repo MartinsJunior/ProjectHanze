@@ -10,5 +10,5 @@ package project.hanze.cgd;
  * @author juniorm10
  */
 public enum LoginStatus {
-    OK, BLOCKED,BAD;
+    OK, BLOCKED,BAD,cu;
 }
