@@ -132,12 +132,8 @@ public class DepositMoneyStudentFrame extends javax.swing.JFrame {
     private void jFormattedTextFieldStudentIdCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jFormattedTextFieldStudentIdCaretUpdate
         String studentId = jFormattedTextFieldStudentId.getText();
         if (studentId.length() > 3) {
-            try {
-                String id = StudentDAO.getInstance().getNameByStudentId(studentId);
-                jTextFieldStudent.setText(id);
-            } catch (SQLException ex) {
-                Logger.getLogger(DepositMoneyStudentFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            String id = StudentDAO.getInstance().getNameByStudentId(studentId);
+            jTextFieldStudent.setText(id);
         }
     }//GEN-LAST:event_jFormattedTextFieldStudentIdCaretUpdate
 
@@ -145,11 +141,7 @@ public class DepositMoneyStudentFrame extends javax.swing.JFrame {
         Double amount = Double.valueOf(jFormattedTextFieldAmout.getText());
         if (amount > 0) {
             String studentId = jFormattedTextFieldStudentId.getText();
-            try {
-                StudentDAO.getInstance().setMoneyByStudentId(studentId, amount);
-            } catch (SQLException ex) {
-                Logger.getLogger(DepositMoneyStudentFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            StudentDAO.getInstance().setMoneyByStudentId(studentId, amount);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -6,10 +6,7 @@
 package project.hanze.cih;
 
 import java.awt.event.ItemEvent;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import project.hanze.cdp.Book;
 import project.hanze.cgd.BookDAO;
 
@@ -25,11 +22,7 @@ public class RegisterBookFrame extends javax.swing.JFrame {
     public RegisterBookFrame() {
         initComponents();
         ArrayList<String> readAuthor = null;
-        try {
-            readAuthor = BookDAO.getInstance().readAuthor();
-        } catch (SQLException ex) {
-            Logger.getLogger(RegisterBookFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        readAuthor = BookDAO.getInstance().readAuthor();
         for (String string : readAuthor) {
             jComboBoxAuthor.addItem(string);
         }
@@ -195,11 +188,7 @@ public class RegisterBookFrame extends javax.swing.JFrame {
         jComboBoxTitle.removeAllItems();
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             ArrayList<String> readBooksByAuthor = null;
-            try {
-                readBooksByAuthor = BookDAO.getInstance().readBooksByAuthor((String) jComboBoxAuthor.getSelectedItem());
-            } catch (SQLException ex) {
-                Logger.getLogger(RegisterBookFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            readBooksByAuthor = BookDAO.getInstance().readBooksByAuthor((String) jComboBoxAuthor.getSelectedItem());
             for (String string : readBooksByAuthor) {
                 jComboBoxTitle.addItem(string);
             }
@@ -212,11 +201,7 @@ public class RegisterBookFrame extends javax.swing.JFrame {
             String author = String.valueOf(jComboBoxAuthor.getSelectedItem());
             String title = String.valueOf(jComboBoxTitle.getSelectedItem());
             int total = 0;
-            try {
-                total = BookDAO.getInstance().countBooksByAuthorAndTitle(author, title);
-            } catch (SQLException ex) {
-                Logger.getLogger(RegisterBookFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            total = BookDAO.getInstance().countBooksByAuthorAndTitle(author, title);
             String text = String.valueOf(total);
             jTotal.setText(text);
         }
@@ -231,11 +216,7 @@ public class RegisterBookFrame extends javax.swing.JFrame {
             book.setAuthor(author);
             book.setTitle(title);
             for (int i = 0; i < totalAdd; i++) {
-                try {
-                    BookDAO.getInstance().insert(book);
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(RegisterBookFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                BookDAO.getInstance().insert(book);
             }
         }
         this.dispose();

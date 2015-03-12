@@ -5,6 +5,12 @@
         <group>
             <file>file:/Users/juniorm10/NetBeansProjects/ProjetoArrombado/src/project/hanze/cgd/StudentDAO.java</file>
             <file>file:/Users/juniorm10/NetBeansProjects/ProjetoArrombado/src/project/hanze/cgd/BookDAO.java</file>
+            <file>file:/Users/juniorm10/NetBeansProjects/ProjetoArrombado/src/project/hanze/cih/BorrowBookStudentFrame.java</file>
+            <file>file:/Users/juniorm10/NetBeansProjects/ProjetoArrombado/src/project/hanze/cgd/LoginStatus.java</file>
+            <file>file:/Users/juniorm10/NetBeansProjects/ProjetoArrombado/src/project/hanze/cgd/TeacherDAO.java</file>
+            <file>file:/Users/juniorm10/NetBeansProjects/ProjetoArrombado/src/project/hanze/cgd/DAOAbstract.java</file>
+            <file>file:/Users/juniorm10/NetBeansProjects/ProjetoArrombado/src/project/hanze/cgd/DAO.java</file>
+            <file>file:/Users/juniorm10/NetBeansProjects/ProjetoArrombado/src/project/hanze/cgd/BorrowDAO.java</file>
         </group>
     </open-files>
 </project-private>

@@ -31,21 +31,17 @@ public class LoginBorrowBookStudentFrame extends javax.swing.JFrame {
         String name = jTextField1.getText();
         String studentId = jTextField2.getText();
         jError.setText("");
-        try {
-            LoginStatus loginStatus = StudentDAO.getInstance().studentLogin(name, studentId);
-            if (loginStatus.equals(LoginStatus.OK)) {
-                BorrowBookStudentFrame borrowBookStudentFrame = new BorrowBookStudentFrame(name, studentId);
-                borrowBookStudentFrame.setVisible(true);
-                this.dispose();
-            } else if (loginStatus.equals(LoginStatus.BLOCKED)) {
-                jError.setText("This account is blocked !!");
-                jTextField2.setText("");
-            } else if (loginStatus.equals(LoginStatus.BAD)) {
-                jError.setText("Invalid name or student id !");
-                jTextField2.setText("");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginBorrowBookStudentFrame.class.getName()).log(Level.SEVERE, null, ex);
+        LoginStatus loginStatus = StudentDAO.getInstance().studentLogin(name, studentId);
+        if (loginStatus.equals(LoginStatus.OK)) {
+            BorrowBookStudentFrame borrowBookStudentFrame = new BorrowBookStudentFrame(name, studentId);
+            borrowBookStudentFrame.setVisible(true);
+            this.dispose();
+        } else if (loginStatus.equals(LoginStatus.BLOCKED)) {
+            jError.setText("This account is blocked !!");
+            jTextField2.setText("");
+        } else if (loginStatus.equals(LoginStatus.BAD)) {
+            jError.setText("Invalid name or student id !");
+            jTextField2.setText("");
         }
     }
 

@@ -16,32 +16,37 @@ import project.hanze.cdp.Teacher;
  *
  * @author juniorm10
  */
-public class TeacherDAO extends DAOAbstract implements DAO<Teacher>{
+public class TeacherDAO extends DAOAbstract implements DAO<Teacher> {
 
-    
     public static TeacherDAO getInstance() {
         return TeacherDAOHolder.INSTANCE;
     }
-    
     private static class TeacherDAOHolder {
+
         private static final TeacherDAO INSTANCE = new TeacherDAO();
     }
-    
+
     @Override
-    public void create() throws ClassNotFoundException, SQLException {
-        this.openConnection();
-        String sql = "CREATE TABLE IF NOT EXISTS TEACHER ("
-                + "Id INTEGER PRIMARY KEY   AUTOINCREMENT,"
-                + "name VARCHAR(50) NOT NULL,"
-                + "staffId VARCHAR(3) NOT NULL,"
-                + "departmentName VARCHAR(20) NOT NULL)";
-        this.execute(sql);
-        this.closeConnection();
+    public void create() {
+        try {
+            this.openConnection();
+            String sql = "CREATE TABLE IF NOT EXISTS TEACHER ("
+                    + "Id INTEGER PRIMARY KEY   AUTOINCREMENT,"
+                    + "name VARCHAR(50) NOT NULL,"
+                    + "staffId VARCHAR(3) NOT NULL,"
+                    + "departmentName VARCHAR(20) NOT NULL)";
+            this.execute(sql);
+            this.closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void insert(Teacher obj) {
-        this.openConnection();
+        try {
+            this.openConnection();
+        
         String sql = "INSERT INTO TEACHER (name,staffId,departmentName) VALUES (?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, obj.getName());
@@ -50,10 +55,18 @@ public class TeacherDAO extends DAOAbstract implements DAO<Teacher>{
             preparedStatement.executeUpdate();
         }
         this.closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void delete(Teacher obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public List<Teacher> read(Class<Teacher> classe) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

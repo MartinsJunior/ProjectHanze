@@ -14,14 +14,11 @@ import project.hanze.cih.MainFrame;
 public class ProjetoArrombado {
 
     public static void main(String[] args) {
-        try {
-            StudentDAO.getInstance().create();
-            BookDAO.getInstance().create();
-            TeacherDAO.getInstance().create();
-            BorrowDAO.getInstance().create();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ProjetoArrombado.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        StudentDAO.getInstance().create();
+        BookDAO.getInstance().create();
+        TeacherDAO.getInstance().create();
+        BorrowDAO.getInstance().create();
+        
         MainFrame mainFrame = new MainFrame();
         mainFrame.setVisible(true);
     }

@@ -29,11 +29,7 @@ public class BorrowBookStudentFrame extends javax.swing.JFrame {
         this.student.setName(name);
         this.student.setStudentId(studentId);
         ArrayList<String> readAuthor = null;
-        try {
-            readAuthor = BookDAO.getInstance().readAuthor();
-        } catch (SQLException ex) {
-            Logger.getLogger(RegisterBookFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        readAuthor = BookDAO.getInstance().readAuthor();
         for (String string : readAuthor) {
             jComboBoxAuthor.addItem(string);
         }
@@ -128,11 +124,7 @@ public class BorrowBookStudentFrame extends javax.swing.JFrame {
         jComboBoxTitle.removeAllItems();
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             ArrayList<String> readBooksByAuthor = null;
-            try {
-                readBooksByAuthor = BookDAO.getInstance().readBooksByAuthor((String) jComboBoxAuthor.getSelectedItem());
-            } catch (SQLException ex) {
-                Logger.getLogger(RegisterBookFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            readBooksByAuthor = BookDAO.getInstance().readBooksByAuthor((String) jComboBoxAuthor.getSelectedItem());
             for (String string : readBooksByAuthor) {
                 jComboBoxTitle.addItem(string);
             }
@@ -156,8 +148,6 @@ public class BorrowBookStudentFrame extends javax.swing.JFrame {
                 System.out.println("já tem 3 livros");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BorrowBookStudentFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
             Logger.getLogger(BorrowBookStudentFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
