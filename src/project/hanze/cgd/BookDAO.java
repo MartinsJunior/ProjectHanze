@@ -72,7 +72,7 @@ public class BookDAO extends DAOAbstract implements DAO<Book> {
             this.openConnection();
             String sql = "SELECT DISTINCT author FROM BOOK order by author";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                ResultSet r = preparedStatement.executeQuery(sql);
+                ResultSet r = preparedStatement.executeQuery();
                 while (r.next()) {
                     booksAuthor.add(r.getString("author"));
                 }
@@ -87,7 +87,7 @@ public class BookDAO extends DAOAbstract implements DAO<Book> {
         ArrayList<String> booksTitle = new ArrayList<>();
         try {
             this.openConnection();
-            String sql = "SELECT DISTINCT title FROM BOOK  where author in ? order by title";
+            String sql = "SELECT DISTINCT title FROM BOOK  where author = ? order by title";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, author);
                 ResultSet r = preparedStatement.executeQuery();
@@ -110,7 +110,7 @@ public class BookDAO extends DAOAbstract implements DAO<Book> {
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, author);
                 preparedStatement.setString(2, title);
-                ResultSet r = preparedStatement.executeQuery(sql);
+                ResultSet r = preparedStatement.executeQuery();
                 total = 0;
                 while (r.next()) {
                     total = Integer.valueOf(r.getString("total"));
@@ -133,7 +133,7 @@ public class BookDAO extends DAOAbstract implements DAO<Book> {
                 preparedStatement.setString(1, author);
                 preparedStatement.setString(2, title);
                 preparedStatement.setInt(3, 0);
-                ResultSet r = preparedStatement.executeQuery(sql);
+                ResultSet r = preparedStatement.executeQuery();
                 id = 0;
                 if (r.next()) {
                     id = r.getInt("id");

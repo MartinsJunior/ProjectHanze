@@ -105,16 +105,14 @@ public class StudentDAO extends DAOAbstract implements DAO<Student> {
         try {
             this.openConnection();
             String sql = "SELECT name FROM student where studentId = ?";
-
             ResultSet resultSet;
+            String name = "";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, studentId);
                 resultSet = preparedStatement.executeQuery();
-            }
-
-            String name = "";
-            if (resultSet.next()) {
-                name = resultSet.getString(1);
+                if (resultSet.next()) {
+                    name = resultSet.getString("name");
+                }
             }
 
             this.closeConnection();
@@ -129,7 +127,6 @@ public class StudentDAO extends DAOAbstract implements DAO<Student> {
         try {
             this.openConnection();
             String sql = "UPDATE student SET money = ? where studentId = ?";
-
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setDouble(1, amount);
                 preparedStatement.setString(2, studentId);
@@ -215,7 +212,7 @@ public class StudentDAO extends DAOAbstract implements DAO<Student> {
             String sql = "UPDATE student SET loginAttempts = 0 where studentId = ?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, studentId);
-                preparedStatement.executeUpdate(sql);
+                preparedStatement.executeUpdate();
             }
             this.closeConnection();
         } catch (SQLException ex) {
