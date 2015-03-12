@@ -22,22 +22,18 @@ public class TeacherDAO extends DAOAbstract implements DAO<Teacher>{
     }
     
     private static class TeacherDAOHolder {
-
         private static final TeacherDAO INSTANCE = new TeacherDAO();
     }
     
-    
     @Override
     public void create() throws ClassNotFoundException, SQLException {
-                this.openConnection();
+        this.openConnection();
         String sql = "CREATE TABLE IF NOT EXISTS TEACHER ("
                 + "Id INTEGER PRIMARY KEY   AUTOINCREMENT,"
                 + "name VARCHAR(50) NOT NULL,"
                 + "staffId VARCHAR(3) NOT NULL,"
                 + "departmentName VARCHAR(20) NOT NULL)";
-
         this.execute(sql);
-
         this.closeConnection();
     }
 
@@ -45,11 +41,12 @@ public class TeacherDAO extends DAOAbstract implements DAO<Teacher>{
     public void insert(Teacher obj) throws SQLException, ClassNotFoundException {
         this.openConnection();
         String sql = "INSERT INTO TEACHER (name,staffId,departmentName) VALUES (?,?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, obj.getName());
-        preparedStatement.setString(2, obj.getStaffId());
-        preparedStatement.setString(3, obj.getDepartmentName());
-        preparedStatement.executeUpdate();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, obj.getName());
+            preparedStatement.setString(2, obj.getStaffId());
+            preparedStatement.setString(3, obj.getDepartmentName());
+            preparedStatement.executeUpdate();
+        }
         this.closeConnection();
     }
 
