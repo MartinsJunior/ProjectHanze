@@ -10,10 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author juniorm10
+ * @author G.A.Y
  */
 public class BorrowDAO extends DAOAbstract {
 
@@ -26,36 +28,44 @@ public class BorrowDAO extends DAOAbstract {
         private static final BorrowDAO INSTANCE = new BorrowDAO();
     }
 
-    public void create() throws ClassNotFoundException, SQLException {
-        this.openConnection();
-        String sql = "CREATE TABLE IF NOT EXISTS BORROW ("
-                + "Id INTEGER PRIMARY KEY   AUTOINCREMENT,"
-                + "id_student int NOT NULL,"
-                + "id_book int NOT NULL,"
-                + "date VARCHAR(15) NOT NULL)";
-
-        this.execute(sql);
-
-        this.closeConnection();
+    public void create() {
+        try {
+            this.openConnection();
+            String sql = "CREATE TABLE IF NOT EXISTS BORROW ("
+                    + "Id INTEGER PRIMARY KEY   AUTOINCREMENT,"
+                    + "id_student int NOT NULL,"
+                    + "id_book int NOT NULL,"
+                    + "date VARCHAR(15) NOT NULL)";
+            this.execute(sql);
+            this.closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(BorrowDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void insert(int idStudent, int idBook) throws SQLException, ClassNotFoundException {
-        this.openConnection();
-        String sql = "INSERT INTO BORROW (id_student,id_book,date) VALUES (?,?,?)";
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy/MM/dd");
-        String data = formatador.format(c.getTime());
-        System.out.println(data);
-        
-        System.out.println("idStudent ->" +idStudent);
-        System.out.println("idBook ->" +idBook);
-        
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, idStudent);
-        preparedStatement.setInt(2, idBook);
-        preparedStatement.setString(3, data);
-        preparedStatement.executeUpdate();
-        this.closeConnection();
+    public void insert(int idStudent, int idBook) {
+        try {
+            this.openConnection();
+            String sql = "INSERT INTO BORROW (id_student,id_book,date) VALUES (?,?,?)";
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat formater = new SimpleDateFormat("yyyy/MM/dd");
+            String data = formater.format(c.getTime());
+            
+            System.out.println(data);
+            System.out.println("idStudent ->" + idStudent);
+            System.out.println("idBook ->" + idBook);
+            
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, idStudent);
+                preparedStatement.setInt(2, idBook);
+                preparedStatement.setString(3, data);
+                preparedStatement.executeUpdate();
+            }
+            
+            this.closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(BorrowDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

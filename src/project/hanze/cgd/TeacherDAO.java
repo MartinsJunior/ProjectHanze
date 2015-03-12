@@ -8,6 +8,8 @@ package project.hanze.cgd;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import project.hanze.cdp.Teacher;
 
 /**
@@ -38,7 +40,7 @@ public class TeacherDAO extends DAOAbstract implements DAO<Teacher>{
     }
 
     @Override
-    public void insert(Teacher obj) throws SQLException, ClassNotFoundException {
+    public void insert(Teacher obj) {
         this.openConnection();
         String sql = "INSERT INTO TEACHER (name,staffId,departmentName) VALUES (?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -51,14 +53,7 @@ public class TeacherDAO extends DAOAbstract implements DAO<Teacher>{
     }
 
     @Override
-    public void delete(Teacher obj) throws SQLException, ClassNotFoundException {
+    public void delete(Teacher obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public List<Teacher> read(Class<Teacher> classe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
 }
